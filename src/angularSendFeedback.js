@@ -49,7 +49,8 @@ angular.module('angular-send-feedback').directive('angularFeedback', [ function(
                             onClose:                function() {},
                             screenshotStroke:       true,
                             highlightElement:       true,
-                            initialBox:             false
+                            initialBox:             false,
+                            addMetaData:            function() { }
                     }, options);
                         var supportedBrowser = !!window.HTMLCanvasElement;
                         var isFeedbackButtonNative = settings.feedbackButton == '.feedback-btn';
@@ -529,6 +530,8 @@ angular.module('angular-send-feedback').directive('angularFeedback', [ function(
 
                                         post.img = img;
                                         post.note = $('#feedback-note').val();
+                                        post.meta = settings.addMetaData();
+
                                         var data = {feedback: post};
                                         var jsonData = JSON.stringify(data);
                                         $.ajax({

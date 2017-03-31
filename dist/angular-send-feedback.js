@@ -1,6 +1,6 @@
 /**
  * Angular feedback directive similar to Google Feedback
- * @version v1.2.0 - 2016-06-28 * @link https://github.com/jacobscarter/angular-feedback
+ * @version v1.2.1 - 2017-03-31 * @link https://github.com/jacobscarter/angular-feedback
  * @author Jacob Carter <jacob@ieksolutions.com>
  * @license MIT License, http://www.opensource.org/licenses/MIT
  */
@@ -64,7 +64,8 @@ angular.module('angular-send-feedback').directive('angularFeedback', [ function(
                             onClose:                function() {},
                             screenshotStroke:       true,
                             highlightElement:       true,
-                            initialBox:             false
+                            initialBox:             false,
+                            addMetaData:            function() { }
                     }, options);
                         var supportedBrowser = !!window.HTMLCanvasElement;
                         var isFeedbackButtonNative = settings.feedbackButton == '.feedback-btn';
@@ -544,6 +545,8 @@ angular.module('angular-send-feedback').directive('angularFeedback', [ function(
 
                                         post.img = img;
                                         post.note = $('#feedback-note').val();
+                                        post.meta = settings.addMetaData();
+
                                         var data = {feedback: post};
                                         var jsonData = JSON.stringify(data);
                                         $.ajax({
